@@ -6,9 +6,12 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, Menus, ClassClockyWidget,
+  StdCtrls, Menus, ClassClockyWidget
   {$ifdef WINDOWS}
-  Windows
+  ,Windows
+  {$endif}
+  {$ifdef LINUX}
+  ,Gtk2, gdk2
   {$endif}
   ;
 
@@ -107,6 +110,13 @@ begin
    OrigParentHWND := GetParent(Self.Handle);
    h := FindWindow('Progman', nil);
    Windows.SetParent(Self.Handle, h);
+   {$endif}
+
+   {$ifdef Linux}
+   gtk_window_stick( PGtkWindow( self.Handle));
+   //gtk_window_set_opacity( PGtkWindow( self.Handle), 0.2);
+   gtk_window_set_type_hint( PGtkWindow( self.Handle), GDK_WINDOW_TYPE_HINT_DOCK);
+   gtk_window_set_keep_below( PGtkWindow( self.Handle), true);
    {$endif}
 
    //menus
@@ -331,4 +341,4 @@ end;
 
 
 end.
-
+

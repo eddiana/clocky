@@ -90,7 +90,7 @@ begin
    BackgroundColor := $600000;
 
    Shiny := TPortableNetworkGraphic.Create;
-   Shiny.LoadFromFile( 'graphics/drawButton-clear.png');
+   //Shiny.LoadFromFile( 'graphics/drawButton-clear.png');
 
    for i := 0 to 100 do
    begin
@@ -134,9 +134,13 @@ var
 begin
 
    //background
+   c.Brush.Style := bsSolid;
    c.Brush.Color := BackgroundColor; //RGBToColor( 0, 0, 24);
    c.FillRect( 0, 0, width, height);
+   {$ifdef Windows}
+   //doesnt seem to work on Linux
    c.Draw(0, 0, Shiny);
+   {$endif}
 
    //Location Header
    c.Font.Name := 'Utah';
@@ -305,7 +309,7 @@ begin
    LocationTimeZone := ini.ReadFloat( sSect, 'LocationTimeZone', LocalTimeZone);
 
    Left := ini.ReadInteger( sSect, 'Left', 200);
-   Top := ini.ReadInteger( sSect, 'Top', 2000);
+   Top := ini.ReadInteger( sSect, 'Top', 200);
 
    sColor := ini.ReadString( sSect, 'BackgroundColor', '$00000000');
    try
@@ -350,4 +354,4 @@ begin
 end;
 
 end.
-
+
