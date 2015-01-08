@@ -39,6 +39,7 @@ type
    TimeFormat: string;
    DateFormat: string;
    BackgroundColor: integer;
+   Flat: boolean;
 
    //
    Top: integer;
@@ -50,12 +51,13 @@ type
 
    //resources
    Shiny: TPortableNetworkGraphic;
+   ShinyBottom: TPortableNetworkGraphic;
    Icons: array[0..100] of TPortableNetworkGraphic;
 
    //API Keys
    OpenWeatherMapAPIKey: string;
 
-   constructor create;
+   constructor create( sPath: string);
 
    function GetProfileName(n: integer): string;
 
@@ -78,10 +80,12 @@ implementation
 
 { TClockyWidget }
 
-constructor TClockyWidget.create;
+constructor TClockyWidget.create( sPath: string);
 var
    i: integer;
 begin
+   ExePath := sPath;
+
    ProfileID := 1;
    LocationTitle := 'State College';
    Location := 'State College,PA';
@@ -90,7 +94,12 @@ begin
    BackgroundColor := $600000;
 
    Shiny := TPortableNetworkGraphic.Create;
-   //Shiny.LoadFromFile( 'graphics/drawButton-clear.png');
+   //Shiny.LoadFromFile( ExePath + 'graphics/drawButton-clear.png');
+   Shiny.LoadFromFile( ExePath + 'graphics/shiny-top.png');
+
+   ShinyBottom := TPortableNetworkGraphic.Create;
+   ShinyBottom.LoadFromFile( ExePath + 'graphics/shiny-bottom.png');
+
 
    for i := 0 to 100 do
    begin
@@ -137,10 +146,13 @@ begin
    c.Brush.Style := bsSolid;
    c.Brush.Color := BackgroundColor; //RGBToColor( 0, 0, 24);
    c.FillRect( 0, 0, width, height);
-   {$ifdef Windows}
-   //doesnt seem to work on Linux
-   c.Draw(0, 0, Shiny);
-   {$endif}
+
+   //draw glassy edge
+   if not Flat then
+   begin
+      c.Draw(0, 0, Shiny);
+      c.Draw(0, height - ShinyBottom.Height, ShinyBottom);
+   end;
 
    //Location Header
    c.Font.Name := 'Utah';
@@ -316,6 +328,8 @@ begin
       BackgroundColor := StringToColor( sColor);
    except
 	end;
+   Flat := ini.ReadBool( sSect, 'Flat', false);
+
 
    ini.Free;
 
@@ -346,6 +360,7 @@ begin
 
    sColor := ColorToString( BackgroundColor);
    ini.WriteString( sSect, 'BackgroundColor', sColor);
+   ini.WriteBool( sSect, 'Flat', Flat);
 
 
 
@@ -354,4 +369,4 @@ begin
 end;
 
 end.
-
+

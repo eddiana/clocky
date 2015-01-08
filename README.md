@@ -17,12 +17,26 @@ Clocky supports up to 8 different Profiles.  Each can have its own location and 
 You can also switch between profiles within the program itself using the menu.
 
 
+####Installation and Configuration
+
+If you just want to run the Clocky desktop widget, download the /dist directory of this repository to your machine into a directory named 'Clocky'.
+
+Now go to [http://openweathermap.org/appid](http://openweathermap.org/appid "Open Weather Map's API page") and get an API Key.  It'll just take a moment.
+
+To run the program, in Windows, simply run:
+
+    Clocky.exe
+
+In Linux, run
+
+
+    ./Clocky
+
+
 ####Todo's
 - Geoip check on start to configure first profile.
 - Add Yahoo, Weather.com, and other profiles.
 
 
-####Attributions:
- - Clocky's icons are from the VCloud collection, by... 
-
-
+####Acknowledgments
+ - Clocky's icons are from the VCloud collection: [http://vclouds.deviantart.com/gallery/#/d2ynulp](http://vclouds.deviantart.com/gallery/#/d2ynulp)

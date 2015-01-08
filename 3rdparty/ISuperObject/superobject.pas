@@ -829,11 +829,11 @@ function SOInvoke(const obj: TValue; const method: string; const params: string;
 
 implementation
 uses
-  sysutils,
+  sysutils
   {$IFDEF Windows}
-  ,Windows,
+  ,Windows
   {$ENDIF}
-  superdate
+  ,superdate
 {$IFDEF FPC}
   ,sockets
 {$ELSE}
@@ -6619,4 +6619,4 @@ finalization
   Assert(debugcount = 0, 'Memory leak');
 {$ENDIF}
 end.
-
+

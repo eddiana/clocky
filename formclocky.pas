@@ -135,9 +135,8 @@ begin
       TryStrToInt( ParamStr(1), nProfile);
 	end;
 
-   clocky := TClockyWidget.Create;
+   clocky := TClockyWidget.Create( ExtractFilePath( Application.ExeName));
    clocky.ProfileID := nProfile;
-   clocky.ExePath := ExtractFilePath( Application.ExeName);
    clocky.Left := Left;
    clocky.Top := Top;
    Clocky.Load;
@@ -341,4 +340,4 @@ end;
 
 
 end.
-
+
