@@ -279,7 +279,7 @@ begin
      p.Executable := 'notepad.exe';
      {$endif}
      {$ifdef Linux}
-     p.Executable := 'xpg-open';
+     p.Executable := 'xdg-open';
      {$endif}
      p.Parameters.Add( sFile);
      p.Execute;
@@ -376,4 +376,4 @@ end;
 
 
 end.
-
+
