@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, Menus, ClassClockyWidget
+  StdCtrls, Menus, Process,
+  ClassClockyWidget
   {$ifdef WINDOWS}
   ,Windows
   {$endif}
@@ -22,6 +23,7 @@ type
   TfrmClockyMain = class(TForm)
 	 Image1: TImage;
 	 labClose: TLabel;
+	 mConfig: TMenuItem;
 	 MenuItem10: TMenuItem;
 	 MenuItem9: TMenuItem;
 	 mProfile: TMenuItem;
@@ -46,6 +48,7 @@ type
 					 Shift: TShiftState; X, Y: Integer);
 	 procedure labCloseMouseEnter(Sender: TObject);
 	 procedure labCloseMouseLeave(Sender: TObject);
+	 procedure mConfigClick(Sender: TObject);
 	 procedure MenuItem10Click(Sender: TObject);
 	 procedure mProfile1Click(Sender: TObject);
 	 procedure MenuItem7Click(Sender: TObject);
@@ -254,6 +257,39 @@ end;
 procedure TfrmClockyMain.labCloseMouseLeave(Sender: TObject);
 begin
    labClose.Font.Color := clMaroon;
+end;
+
+procedure TfrmClockyMain.mConfigClick(Sender: TObject);
+var
+   sFile: string;
+   sPath: string;
+   p: TProcess;
+begin
+   sFile := GetAppConfigFile( false, true);
+   sPath := ExtractFilePath( sFile);
+   ForceDirectories( sPath);
+
+   p:=TProcess.Create(nil);
+   try
+     p.InheritHandles := false;
+     p.Options := [];
+     p.ShowWindow := swoShow;
+
+     {$ifdef Windows}
+     p.Executable := 'notepad.exe';
+     {$endif}
+     {$ifdef Linux}
+     p.Executable := 'xpg-open';
+     {$endif}
+     p.Parameters.Add( sFile);
+     p.Execute;
+   finally
+     p.Free;
+   end;
+
+
+
+
 end;
 
 procedure TfrmClockyMain.MenuItem10Click(Sender: TObject);

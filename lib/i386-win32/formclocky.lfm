@@ -103,6 +103,10 @@ object frmClockyMain: TfrmClockyMain
       Caption = 'Switch To Profile'
       OnClick = mProfileClick
     end
+    object mConfig: TMenuItem
+      Caption = 'Edit Configuration'
+      OnClick = mConfigClick
+    end
     object MenuItem9: TMenuItem
       Caption = '-'
     end
