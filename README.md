@@ -47,6 +47,8 @@ The configuration file might looks something like this:
 	[clocky]
 	LocalTimeZone=-5
 	OpenWeatherMapAPIKey=147f9111af7e56a37960f1af5c976cb4
+    DefaultFontName=DejaVu Sans
+
 
 	[Prof_1]
 	Left=1928
@@ -54,6 +56,7 @@ The configuration file might looks something like this:
 	LocationTitle=State College
 	Location=State College, PA
 	BackgroundColor=$00180000
+	FontName=Verdana
 	Unit=F
 	Iconset=VCloud
 	LocationTimeZone=-5
@@ -65,7 +68,7 @@ In the 'clocky' section of the ini file, there is:
 
 **Open WeatherMapAPIKe**y - the API Key you obtained as mentioned above.
 
-**DefaultFontName** - this is the default font to use for display in all the profiles.
+**DefaultFontName** - this is the default font to use for display in all the profiles.  If this value is not present, in Windows clocky defaults to *Arial*, and in Linux to the default *sans serif* font.
 
 Below the 'clocky' section is the information for the different profiles.  They are titled `Prof_1` to `Prof_8`.   
 
