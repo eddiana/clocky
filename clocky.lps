@@ -13,7 +13,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="15" Y="19"/>
-        <UsageCount Value="35"/>
+        <UsageCount Value="36"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -23,12 +23,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="FormClocky"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="249"/>
-        <CursorPos X="16" Y="265"/>
-        <UsageCount Value="35"/>
+        <TopLine Value="257"/>
+        <CursorPos X="24" Y="262"/>
+        <UsageCount Value="36"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -36,11 +35,12 @@
         <Filename Value="classclockywidget.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ClassClockyWidget"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="304"/>
-        <CursorPos X="1" Y="312"/>
-        <UsageCount Value="35"/>
+        <TopLine Value="1"/>
+        <CursorPos X="20" Y="19"/>
+        <UsageCount Value="36"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -51,7 +51,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="89" Y="9"/>
-        <UsageCount Value="24"/>
+        <UsageCount Value="25"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -69,7 +69,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="811"/>
         <CursorPos X="1" Y="835"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
@@ -126,124 +126,124 @@
     </General>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="3rdparty\ISuperObject\superobject.pas"/>
-        <Caret Line="836" Column="3" TopLine="828"/>
+        <Filename Value="formclocky.pas"/>
+        <Caret Line="142" Column="1" TopLine="137"/>
       </Position1>
       <Position2>
-        <Filename Value="3rdparty\ISuperObject\superobject.pas"/>
-        <Caret Line="4235" Column="85" TopLine="4224"/>
+        <Filename Value="formclocky.pas"/>
+        <Caret Line="143" Column="1" TopLine="137"/>
       </Position2>
       <Position3>
-        <Filename Value="formclocky.pas"/>
-        <Caret Line="114" Column="6" TopLine="102"/>
+        <Filename Value="classclockywidget.pas"/>
+        <Caret Line="301" Column="45" TopLine="295"/>
       </Position3>
       <Position4>
         <Filename Value="formclocky.pas"/>
-        <Caret Line="111" Column="33" TopLine="103"/>
+        <Caret Line="123" Column="1" TopLine="113"/>
       </Position4>
       <Position5>
         <Filename Value="formclocky.pas"/>
-        <Caret Line="141" Column="1" TopLine="137"/>
+        <Caret Line="143" Column="31" TopLine="125"/>
       </Position5>
       <Position6>
-        <Filename Value="formclocky.pas"/>
-        <Caret Line="142" Column="1" TopLine="137"/>
+        <Filename Value="classclockywidget.pas"/>
+        <Caret Line="138" Column="29" TopLine="130"/>
       </Position6>
       <Position7>
-        <Filename Value="formclocky.pas"/>
-        <Caret Line="143" Column="1" TopLine="137"/>
+        <Filename Value="classclockywidget.pas"/>
+        <Caret Line="92" Column="18" TopLine="81"/>
       </Position7>
       <Position8>
-        <Filename Value="classclockywidget.pas"/>
-        <Caret Line="301" Column="45" TopLine="295"/>
+        <Filename Value="formclocky.pas"/>
+        <Caret Line="227" Column="26" TopLine="92"/>
       </Position8>
       <Position9>
-        <Filename Value="formclocky.pas"/>
-        <Caret Line="123" Column="1" TopLine="113"/>
+        <Filename Value="3rdparty\ISuperObject\superobject.pas"/>
+        <Caret Line="4239" Column="86" TopLine="4229"/>
       </Position9>
       <Position10>
-        <Filename Value="formclocky.pas"/>
-        <Caret Line="143" Column="31" TopLine="125"/>
+        <Filename Value="classclockywidget.pas"/>
+        <Caret Line="96" Column="60" TopLine="78"/>
       </Position10>
       <Position11>
         <Filename Value="classclockywidget.pas"/>
-        <Caret Line="138" Column="29" TopLine="130"/>
+        <Caret Line="94" Column="1" TopLine="78"/>
       </Position11>
       <Position12>
         <Filename Value="classclockywidget.pas"/>
-        <Caret Line="92" Column="18" TopLine="81"/>
+        <Caret Line="96" Column="1" TopLine="78"/>
       </Position12>
       <Position13>
-        <Filename Value="formclocky.pas"/>
-        <Caret Line="227" Column="26" TopLine="92"/>
+        <Filename Value="classclockywidget.pas"/>
+        <Caret Line="88" Column="14" TopLine="78"/>
       </Position13>
       <Position14>
-        <Filename Value="3rdparty\ISuperObject\superobject.pas"/>
-        <Caret Line="4239" Column="86" TopLine="4229"/>
+        <Filename Value="classclockywidget.pas"/>
+        <Caret Line="94" Column="1" TopLine="78"/>
       </Position14>
       <Position15>
         <Filename Value="classclockywidget.pas"/>
-        <Caret Line="96" Column="60" TopLine="78"/>
+        <Caret Line="96" Column="1" TopLine="78"/>
       </Position15>
       <Position16>
-        <Filename Value="classclockywidget.pas"/>
-        <Caret Line="94" Column="1" TopLine="78"/>
+        <Filename Value="formclocky.pas"/>
+        <Caret Line="324" Column="21" TopLine="297"/>
       </Position16>
       <Position17>
         <Filename Value="classclockywidget.pas"/>
-        <Caret Line="96" Column="1" TopLine="78"/>
+        <Caret Line="98" Column="30" TopLine="78"/>
       </Position17>
       <Position18>
         <Filename Value="classclockywidget.pas"/>
-        <Caret Line="88" Column="14" TopLine="78"/>
+        <Caret Line="96" Column="1" TopLine="78"/>
       </Position18>
       <Position19>
         <Filename Value="classclockywidget.pas"/>
-        <Caret Line="94" Column="1" TopLine="78"/>
+        <Caret Line="139" Column="72" TopLine="117"/>
       </Position19>
       <Position20>
         <Filename Value="classclockywidget.pas"/>
-        <Caret Line="96" Column="1" TopLine="78"/>
+        <Caret Line="42" Column="18" TopLine="25"/>
       </Position20>
       <Position21>
-        <Filename Value="formclocky.pas"/>
-        <Caret Line="324" Column="21" TopLine="297"/>
-      </Position21>
-      <Position22>
-        <Filename Value="classclockywidget.pas"/>
-        <Caret Line="98" Column="30" TopLine="78"/>
-      </Position22>
-      <Position23>
-        <Filename Value="classclockywidget.pas"/>
-        <Caret Line="96" Column="1" TopLine="78"/>
-      </Position23>
-      <Position24>
-        <Filename Value="classclockywidget.pas"/>
-        <Caret Line="139" Column="72" TopLine="117"/>
-      </Position24>
-      <Position25>
-        <Filename Value="classclockywidget.pas"/>
-        <Caret Line="42" Column="18" TopLine="25"/>
-      </Position25>
-      <Position26>
         <Filename Value="classclockywidget.pas"/>
         <Caret Line="326" Column="62" TopLine="299"/>
-      </Position26>
-      <Position27>
+      </Position21>
+      <Position22>
         <Filename Value="formclocky.pas"/>
         <Caret Line="324" Column="21" TopLine="297"/>
-      </Position27>
-      <Position28>
+      </Position22>
+      <Position23>
         <Filename Value="formclocky.pas"/>
         <Caret Line="325" Column="21" TopLine="298"/>
-      </Position28>
-      <Position29>
+      </Position23>
+      <Position24>
         <Filename Value="formclocky.pas"/>
         <Caret Line="324" Column="21" TopLine="297"/>
-      </Position29>
-      <Position30>
+      </Position24>
+      <Position25>
         <Filename Value="formclocky.pas"/>
         <Caret Line="331" Column="21" TopLine="304"/>
+      </Position25>
+      <Position26>
+        <Filename Value="formclocky.pas"/>
+        <Caret Line="265" Column="4" TopLine="242"/>
+      </Position26>
+      <Position27>
+        <Filename Value="classclockywidget.pas"/>
+        <Caret Line="312" Column="1" TopLine="304"/>
+      </Position27>
+      <Position28>
+        <Filename Value="classclockywidget.pas"/>
+        <Caret Line="159" Column="1" TopLine="139"/>
+      </Position28>
+      <Position29>
+        <Filename Value="classclockywidget.pas"/>
+        <Caret Line="103" Column="1" TopLine="75"/>
+      </Position29>
+      <Position30>
+        <Filename Value="classclockywidget.pas"/>
+        <Caret Line="341" Column="1" TopLine="311"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>

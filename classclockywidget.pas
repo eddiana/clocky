@@ -9,6 +9,14 @@ uses Classes, Graphics, SysUtils, httpsend, superobject, inifiles, clockyutils;
 const CLOCKY_CHECK_INTERVAL = 15 * 60;
 const CLOCKY_PROFILE_COUNT = 8;
 
+{$ifdef Windows}
+const CLOCKY_FONT = 'Arial';
+{$endif}
+{$ifdef Linux}
+const CLOCKY_FONT ='sans-serif';
+{$endif}
+
+
 type
 
 
@@ -40,6 +48,8 @@ type
    DateFormat: string;
    BackgroundColor: integer;
    Flat: boolean;
+   DefaultFontName: string;
+   FontName: string;
 
    //
    Top: integer;
@@ -92,6 +102,7 @@ begin
    TimeFormat := 'hh:nnam/pm';
    DateFormat := 'ddd, mmm dd, yyyy';
    BackgroundColor := $600000;
+   DefaultFontName := CLOCKY_FONT;
 
    Shiny := TPortableNetworkGraphic.Create;
    //Shiny.LoadFromFile( ExePath + 'graphics/drawButton-clear.png');
@@ -99,7 +110,6 @@ begin
 
    ShinyBottom := TPortableNetworkGraphic.Create;
    ShinyBottom.LoadFromFile( ExePath + 'graphics/shiny-bottom.png');
-
 
    for i := 0 to 100 do
    begin
@@ -155,7 +165,7 @@ begin
    end;
 
    //Location Header
-   c.Font.Name := 'Utah';
+   c.Font.Name := FontName; // 'Utah';
    c.Font.Color := clWhite;
    c.Font.Height := 20;
    c.Brush.Style := bsClear;
@@ -302,6 +312,7 @@ end;
 procedure TClockyWidget.Load;
 var
    sPath, sFile, sSect, sColor: string;
+
    ini: TIniFile;
 begin
 
@@ -313,6 +324,7 @@ begin
 
    LocalTimeZone := ini.ReadFloat( 'clocky', 'LocalTimeZone', 0);
    OpenWeatherMapAPIKey := ini.ReadString( 'clocky', 'OpenWeatherMapAPIKey', '');
+   DefaultFontName := ini.ReadString( 'clocky', 'DefaultFontName', CLOCKY_FONT);
 
    sSect := 'Prof_' + IntToStr( ProfileID);
 
@@ -330,6 +342,7 @@ begin
 	end;
    Flat := ini.ReadBool( sSect, 'Flat', false);
 
+   FontName := ini.ReadString( sSect, 'FontName', DefaultFontName);
 
    ini.Free;
 
@@ -361,6 +374,7 @@ begin
    sColor := ColorToString( BackgroundColor);
    ini.WriteString( sSect, 'BackgroundColor', sColor);
    ini.WriteBool( sSect, 'Flat', Flat);
+   ini.WriteString( sSect, 'FontName', FontName);
 
 
 

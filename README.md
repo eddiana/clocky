@@ -40,7 +40,7 @@ Configuration files are stored, in Windows, under
 
 In Linux, it's stored in the user's home directory under
 
-	`.config/clocky/clocky.cfg` 
+	.config/clocky/clocky.cfg 
 
 The configuration file might looks something like this:
 
@@ -58,14 +58,16 @@ The configuration file might looks something like this:
 	Iconset=VCloud
 	LocationTimeZone=-5
 	Flat=0
-`
+
 In the 'clocky' section of the ini file, there is:
 
 **LocalTimeZone** - the number of hours you are after or before GMT.  EST standard time, for example is -4 or -5 during DST.  If its a partial hour, list it as a decimal, like 5.5.
 
 **Open WeatherMapAPIKe**y - the API Key you obtained as mentioned above.
 
-Below the 'clocky' section is the information for the different profiles.  They are titled Prof_1 to Prof_8.   
+**DefaultFontName** - this is the default font to use for display in all the profiles.
+
+Below the 'clocky' section is the information for the different profiles.  They are titled `Prof_1` to `Prof_8`.   
 
 The options are:
 
@@ -74,6 +76,8 @@ The options are:
 **Location** - this is the location string passed to the weather API.  In the US it is typically City, State.  If you have trouble identifying what to put here, you might try the strings out at OpenWeatherMap.org.
 
 **BackgroundColor** - Hexidecimal ARGB value for the background color.  $00000000 is black, and is default.  You can also use FreePascal/Delphi style constants, such as clNavy and clMaroon.
+
+**FontName** - this is the font to use for display in this profile.  If not present, defaults to DefaultFontName in the 'clocky' section.
 
 **Unit** - The unit you want to display temperatures in, either F or C.
 
@@ -85,6 +89,7 @@ The options are:
 
 **Left**, **Top** - The position, in Pixels.  There is no need to set this as the widget can be dragged anywhere on the desktop.  But you somehow get it off the screen this is useful.
 
+To add a new Profile, just add the section to the config file, using any of `Prof_1` to `Prof_8`.
 
 
 ####Todo's
