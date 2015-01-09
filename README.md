@@ -6,6 +6,9 @@ Clock and Weather desktop widget for Linux &amp; Windows.
 
 Microsoft got rid of their Desktop Gadgets.  Well, I was quite partial to the weather and clock gadgets I was using.  So I decided to just make a replacement.
 
+![](clocky-screen-1.png) ![](clocky-screen-2.png)
+
+
 Clocky is built with Lazarus, a cross-platform, Open Source RAD IDE for FreePascal.  It is designed to compile on both Windows and Linux.  And it shouldn't be too much trouble to compile for OSX and other platforms supported by Lazarus.
 
 Clocky pulls its weather data from OpenWeatherMap.org.  To use Clocky, you'll need a free API key from them.  It only takes a couple of seconds to get one.

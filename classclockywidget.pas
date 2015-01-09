@@ -156,6 +156,7 @@ begin
    c.Brush.Style := bsSolid;
    c.Brush.Color := BackgroundColor; //RGBToColor( 0, 0, 24);
    c.FillRect( 0, 0, width, height);
+   //c.Rectangle( 0, 0, width, height);
 
    //draw glassy edge
    if not Flat then
