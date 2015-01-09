@@ -1,8 +1,8 @@
 object frmClockyMain: TfrmClockyMain
   Cursor = crHandPoint
-  Left = 732
+  Left = 646
   Height = 242
-  Top = 129
+  Top = 62
   Width = 503
   BorderStyle = bsNone
   Caption = 'Clocky::1'
@@ -19,7 +19,7 @@ object frmClockyMain: TfrmClockyMain
   OnMouseUp = FormMouseUp
   OnPaint = FormPaint
   OnShow = FormShow
-  LCLVersion = '1.2.6.0'
+  LCLVersion = '1.0.1.3'
   object Image1: TImage
     Left = 344
     Height = 80
@@ -76,9 +76,9 @@ object frmClockyMain: TfrmClockyMain
   object labClose: TLabel
     Cursor = crHandPoint
     Left = 207
-    Height = 21
+    Height = 20
     Top = 0
-    Width = 16
+    Width = 17
     Caption = ' v '
     Font.Color = clMaroon
     Font.Height = -16
@@ -115,4 +115,4 @@ object frmClockyMain: TfrmClockyMain
       OnClick = MenuItem10Click
     end
   end
-end
+end

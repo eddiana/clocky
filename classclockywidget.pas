@@ -229,6 +229,7 @@ var
    rs: TStringList;
    j: ISuperObject;
    sa: TSuperArray;
+   p: string;
 begin
 
    sURL := 'http://api.openweathermap.org/data/2.5/weather?q=' + Location + '&units=imperial&APPID=' + OpenWeatherMapAPIKey;
@@ -238,23 +239,30 @@ begin
       if HTTPGetText( sURL, rs) then
       begin
          sj := rs.Text;
-
-         j := so( sj);
-
-
-         Conditions.CurrentTemp:= j['main'].i['temp'];
-
-         sa := j.A['weather'];
-
-         if sa.Length > 0 then
+         p := copy( sj, 1, 1);
+         if (length( sj) > 0) and (p = '{') then
          begin
-            Conditions.Description:= sa[0].s['main'];
-            Conditions.Icon:=  sa[0].s['icon'];
-			end;
+            j := so( sj);
+            if assigned( j) then
+            begin
+               try
+                  Conditions.CurrentTemp:= j['main'].i['temp'];
 
+                  sa := j.A['weather'];
+
+                  if sa.Length > 0 then
+                  begin
+                     Conditions.Description:= sa[0].s['main'];
+                     Conditions.Icon:=  sa[0].s['icon'];
+                  end;
+               except
+
+               end;
+            end;
+         end;
 	   end;
 	finally
-     rs.Free;
+      rs.Free;
 	end;
 
 
@@ -384,4 +392,4 @@ begin
 end;
 
 end.
-
+
