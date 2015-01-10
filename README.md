@@ -64,6 +64,8 @@ The configuration file might looks something like this:
 	Iconset=VCloud
 	LocationTimeZone=-5
 	Flat=0
+	AutoLaunch=1
+
 
 In the 'clocky' section of the ini file, there is:
 
@@ -95,7 +97,20 @@ The options are:
 
 **Left**, **Top** - The position, in Pixels.  There is no need to set this as the widget can be dragged anywhere on the desktop.  But you somehow get it off the screen this is useful.
 
+**AutoLaunch** - if set to 1, this profile will automatically be launched as a separate desktop widget when the *auto* parameter is passed to clocky on startup.
+
 To add a new Profile, just add the section to the config file, using any of `Prof_1` to `Prof_8`.
+
+To launch a desktop widget using a specific profile, send the profile number as the first parameter when running the program, such as:
+
+	clocky 4
+
+To automatically launch separate widgets for all profiles set to AutoLaunch, pass in *auto* as the parameter, like:
+
+	clocky auto
+
+
+
 
 
 ####Todo's

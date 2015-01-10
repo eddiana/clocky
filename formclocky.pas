@@ -59,6 +59,7 @@ type
     { private declarations }
   public
     OrigParentHWND: integer;
+    AutoLaunch: boolean;
 
     isStarting: boolean;
     isDragging: boolean;
@@ -70,6 +71,8 @@ type
     clocky: TClockyWidget;
 
     procedure ProfileMenuClicked(Sender: TObject);
+
+    procedure DoAutoLaunch;
 
   end;
 
@@ -93,12 +96,15 @@ var
   i, h: integer;
   nProfile: integer;
   mi: TMenuItem;
+  sParam: string;
 begin
    isStarting := true;
+   AutoLaunch := false;
    width := 225;
    height := 190;
 
    isDragging := false;
+
 
 
    {$ifdef Windows}
@@ -113,6 +119,8 @@ begin
    OrigParentHWND := GetParent(Self.Handle);
    h := FindWindow('Progman', nil);
    Windows.SetParent(Self.Handle, h);
+   //formStyle := fsStayOnTop;
+
    {$endif}
 
    {$ifdef Linux}
@@ -135,7 +143,15 @@ begin
    nProfile := 1;
    if ParamCount > 0 then
    begin
-      TryStrToInt( ParamStr(1), nProfile);
+      sParam := ParamStr(1);
+      if not TryStrToInt( sParam, nProfile) then
+      begin
+         if lowercase( sParam) = 'auto' then
+         begin
+            AutoLaunch := true;
+			end;
+
+		end;
 	end;
 
    clocky := TClockyWidget.Create( ExtractFilePath( Application.ExeName));
@@ -145,6 +161,9 @@ begin
    Clocky.Load;
    Left := Clocky.Left;
    Top := Clocky.Top;
+
+   if AutoLaunch then
+      DoAutoLaunch;
 
 
 end;
@@ -324,7 +343,6 @@ begin
 end;
 
 
-
 procedure TfrmClockyMain.MenuItem7Click(Sender: TObject);
 begin
 
@@ -373,6 +391,38 @@ begin
 
    invalidate;
 end;
+
+procedure TfrmClockyMain.DoAutoLaunch;
+var
+   sFile: string;
+   sPath: string;
+   p: TProcess;
+   i: integer;
+   sExe: string;
+begin
+
+   sExe := Application.ExeName;
+
+
+   for i := 2 to CLOCKY_PROFILE_COUNT do
+   begin
+      if Clocky.isProfileAutolaunch( i) then
+      begin
+         p:=TProcess.Create(nil);
+         try
+            p.InheritHandles := false;
+            p.Options := [];
+            p.ShowWindow := swoShow;
+            p.Executable := sExe;
+            p.Parameters.Add( IntToStr( i));
+            p.Execute;
+         finally
+            p.Free;
+         end;
+      end;
+   end;
+end;
+
 
 
 end.

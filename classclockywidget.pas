@@ -83,6 +83,8 @@ type
    procedure Load;
    procedure Save;
 
+   function isProfileAutolaunch( nProfile: integer): boolean;
+
 end;
 
 
@@ -391,5 +393,23 @@ begin
 
 end;
 
+function TClockyWidget.isProfileAutolaunch(nProfile: integer): boolean;
+var
+   sFile: string;
+   sSect: string;
+   ini: TIniFile;
+begin
+   result := false;
+   sFile := GetAppConfigFile( false, true);
+   if not FileExists( sFile) then
+      exit;
+
+   sSect := 'Prof_' + IntToStr( nProfile);
+
+   ini := TIniFile.Create( sFile);
+   result := ini.ReadBool( sSect, 'AutoLaunch', false);
+   ini.Free;
+end;
+
 end.
-
+
