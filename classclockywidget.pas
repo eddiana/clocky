@@ -4,7 +4,10 @@ unit ClassClockyWidget;
 
 interface
 
-uses Classes, Graphics, SysUtils, httpsend, superobject, inifiles, clockyutils;
+uses Classes, Graphics, SysUtils, httpsend, superobject, inifiles, clockyutils
+  ,bgrabitmap, bgrabitmaptypes
+  ;
+
 
 const CLOCKY_CHECK_INTERVAL = 15 * 60;
 const CLOCKY_PROFILE_COUNT = 8;
@@ -60,9 +63,14 @@ type
    Conditions: TClockyWeatherConditions;
 
    //resources
-   Shiny: TPortableNetworkGraphic;
-   ShinyBottom: TPortableNetworkGraphic;
-   Icons: array[0..100] of TPortableNetworkGraphic;
+   //Shiny: TPortableNetworkGraphic;
+   //ShinyBottom: TPortableNetworkGraphic;
+
+   Shiny: TBGRABitmap;
+   ShinyBottom: TBGRABitmap;
+
+   //Icons: array[0..100] of TPortableNetworkGraphic;
+   Icons: array[0..100] of TBGRABitmap;
 
    //API Keys
    OpenWeatherMapAPIKey: string;
@@ -106,12 +114,17 @@ begin
    BackgroundColor := $600000;
    DefaultFontName := CLOCKY_FONT;
 
+
+   {
    Shiny := TPortableNetworkGraphic.Create;
-   //Shiny.LoadFromFile( ExePath + 'graphics/drawButton-clear.png');
    Shiny.LoadFromFile( ExePath + 'graphics/shiny-top.png');
 
    ShinyBottom := TPortableNetworkGraphic.Create;
    ShinyBottom.LoadFromFile( ExePath + 'graphics/shiny-bottom.png');
+   }
+
+   Shiny := TBGRABitmap.Create( ExePath + 'graphics/shiny-top.png');
+   ShinyBottom := TBGRABitmap.Create( ExePath + 'graphics/shiny-bottom.png');
 
    for i := 0 to 100 do
    begin
@@ -152,6 +165,8 @@ var
    png: TPortableNetworkGraphic;
    nIcon: integer;
    sIcon: string;
+   tmppng: TBGRABitmap;
+
 begin
 
    //background
@@ -163,8 +178,12 @@ begin
    //draw glassy edge
    if not Flat then
    begin
-      c.Draw(0, 0, Shiny);
-      c.Draw(0, height - ShinyBottom.Height, ShinyBottom);
+      //c.Draw(0, 0, Shiny);
+      //c.Draw(0, height - ShinyBottom.Height, ShinyBottom);
+
+      Shiny.Draw( c, 0, 0, False);
+      ShinyBottom.Draw( c, 0, height - ShinyBottom.Height, false);
+
    end;
 
    //Location Header
@@ -202,8 +221,16 @@ begin
    nIcon := iconOpenWeatherToVCloud( Conditions.Icon);
    if Icons[nIcon] = nil then
    begin
-      Icons[nIcon] := TPortableNetworkGraphic.Create;
-      Icons[nIcon].LoadFromFile( ExePath + 'icons/VClouds/' +IntToStr( nIcon) + '.png');
+      //Icons[nIcon] := TPortableNetworkGraphic.Create;
+      //Icons[nIcon].LoadFromFile( ExePath + 'icons/VClouds/' +IntToStr( nIcon) + '.png');
+
+      tmppng := TBGRABitmap.Create( ExePath + 'icons/VClouds/' +IntToStr( nIcon) + '.png');
+      tmppng.ResampleFilter:= rfBicubic;
+      Icons[nIcon]  := tmppng.Resample(82, 60) as TBGRABitmap;
+      tmppng.Free;
+
+      //Icons[nIcon] := TBGRABitmap.Create( ExePath + 'icons/VClouds/' +IntToStr( nIcon) + '.png');
+
 	end;
 
    if Icons[nIcon] <> nil then
@@ -211,7 +238,8 @@ begin
       //c.Draw( 0, 100, Icons[nIcon]);
       //x := round( (width / 4) - 30);
       x :=  round((width / 2) - 82 - 5);
-      c.StretchDraw( rect( x, 100, x+82, 160), Icons[nIcon]);
+      //c.StretchDraw( rect( x, 100, x+82, 160), Icons[nIcon]);
+      Icons[nIcon].draw( c, x, 100, false);
 	end;
 
    //conditions

@@ -69,7 +69,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="3rdparty\synapse\source\lib;3rdparty\ISuperObject"/>
+      <OtherUnitFiles Value="3rdparty\synapse\source\lib;3rdparty\ISuperObject;3rdparty\bgrabitmap"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>
