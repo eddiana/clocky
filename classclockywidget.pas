@@ -12,6 +12,9 @@ uses Classes, Graphics, SysUtils, httpsend, superobject, inifiles, clockyutils
 const CLOCKY_CHECK_INTERVAL = 15 * 60;
 const CLOCKY_PROFILE_COUNT = 8;
 
+const CLOCKY_PROVIDER_OPENWEATHER = 0;
+const CLOCKY_PROVIDER_YAHOO = 1;
+
 {$ifdef Windows}
 const CLOCKY_FONT = 'Arial';
 {$endif}
@@ -27,6 +30,7 @@ type
    CurrentTemp: integer;
    Description: string;
    Icon: string;
+   Code: integer;
 
  end;
 
@@ -72,6 +76,9 @@ type
    //Icons: array[0..100] of TPortableNetworkGraphic;
    Icons: array[0..100] of TBGRABitmap;
 
+
+   WeatherProvider: integer;
+
    //API Keys
    OpenWeatherMapAPIKey: string;
 
@@ -85,8 +92,11 @@ type
    procedure Render( c: TCanvas; width: integer; height: integer);
 
    procedure UpdateWeatherConditions;
+   procedure UpdateWeatherConditionsOpenWeather;
+   procedure UpdateWeatherConditionsYahoo;
 
    function iconOpenWeatherToVCloud( sOW: string): integer;
+   function yahooCodeToVCloud( nCode: integer): integer;
 
    procedure Load;
    procedure Save;
@@ -113,6 +123,10 @@ begin
    DateFormat := 'ddd, mmm dd, yyyy';
    BackgroundColor := $600000;
    DefaultFontName := CLOCKY_FONT;
+
+   WeatherProvider := CLOCKY_PROVIDER_OPENWEATHER;
+
+   Conditions.Code := 100;
 
 
    {
@@ -218,7 +232,15 @@ begin
    c.TextOut( x, 110, s);
 
    //icon
-   nIcon := iconOpenWeatherToVCloud( Conditions.Icon);
+   case WeatherProvider of
+      CLOCKY_PROVIDER_YAHOO:
+      begin
+         nIcon := yahooCodeToVCloud( Conditions.Code);
+		end;
+   else
+      nIcon := iconOpenWeatherToVCloud( Conditions.Icon);
+   end;
+
    if Icons[nIcon] = nil then
    begin
       //Icons[nIcon] := TPortableNetworkGraphic.Create;
@@ -253,6 +275,18 @@ begin
 end;
 
 procedure TClockyWidget.UpdateWeatherConditions;
+begin
+   case WeatherProvider of
+      CLOCKY_PROVIDER_YAHOO:
+         UpdateWeatherConditionsYahoo;
+   else
+      UpdateWeatherConditionsOpenWeather;
+	end;
+
+end;
+
+
+procedure TClockyWidget.UpdateWeatherConditionsOpenWeather;
 var
    sURL: string;
    sj: string;
@@ -298,6 +332,68 @@ begin
 
 
 
+
+end;
+
+
+procedure TClockyWidget.UpdateWeatherConditionsYahoo;
+var
+   sURL: string;
+   sj: string;
+   rs: TStringList;
+   j: ISuperObject;
+   sa: TSuperArray;
+   p: string;
+   n: integer;
+   yql: string;
+begin
+
+   sURL := 'http://query.yahooapis.com/v1/public/yql?q=';
+
+
+   yql := 'select item.condition from weather.forecast where woeid in (select woeid from geo.places(1) where text="' + Location + '")';
+   yql := StringReplace( yql, ' ', '%20', [rfReplaceAll]);
+   yql := StringReplace( yql, '=', '%3D', [rfReplaceAll]);
+   yql := StringReplace( yql, '"', '%22', [rfReplaceAll]);
+   yql := StringReplace( yql, ',', '%2C', [rfReplaceAll]);
+
+   sURL := sURL + yql + '&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
+
+   rs := TStringList.Create;
+   try
+      if HTTPGetText( sURL, rs) then
+      begin
+         sj := rs.Text;
+         p := copy( sj, 1, 1);
+         if (length( sj) > 0) and (p = '{') then
+         begin
+            j := so( sj);
+            if assigned( j) then
+            begin
+               try
+                  p := j['query'].o['results'].o['channel'].o['item'].o['condition'].S['temp'];
+                  if TryStrToInt( p, n) then
+                  begin
+                     Conditions.CurrentTemp := n;
+						end;
+
+                  p := j['query'].o['results'].o['channel'].o['item'].o['condition'].S['code'];
+                  if TryStrToInt( p, n) then
+                  begin
+                     Conditions.Code := n;
+                  end;
+
+
+                  Conditions.Description := j['query'].o['results'].o['channel'].o['item'].o['condition'].S['text'];
+               except
+
+               end;
+            end;
+         end;
+	   end;
+	finally
+      rs.Free;
+	end;
 
 end;
 
@@ -348,11 +444,27 @@ begin
 
 end;
 
+function TClockyWidget.yahooCodeToVCloud(nCode: integer): integer;
+begin
+
+   //vcloud image set is already mapped to yahoo codes
+   if (nCode >= 0) and (nCode <= 47) then
+   begin
+      result := nCode
+	end
+   else
+   begin
+      result := 100;
+	end;
+
+end;
+
 procedure TClockyWidget.Load;
 var
    sPath, sFile, sSect, sColor: string;
 
    ini: TIniFile;
+   p: string;
 begin
 
    sFile := GetAppConfigFile( false, true);
@@ -366,6 +478,13 @@ begin
    DefaultFontName := ini.ReadString( 'clocky', 'DefaultFontName', CLOCKY_FONT);
 
    sSect := 'Prof_' + IntToStr( ProfileID);
+
+   WeatherProvider := CLOCKY_PROVIDER_OPENWEATHER;
+   p := ini.ReadString( sSect, 'WeatherProvider', '');
+   if (lowercase(p) = 'yahoo') then
+   begin
+      WeatherProvider := CLOCKY_PROVIDER_YAHOO;
+	end;
 
    LocationTitle := ini.ReadString( sSect, 'LocationTitle', 'State College');
    Location := ini.ReadString( sSect, 'Location', 'State College, PA');
