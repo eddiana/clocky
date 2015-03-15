@@ -473,18 +473,31 @@ begin
 
    ini := TIniFile.Create( sFile);
 
-   LocalTimeZone := ini.ReadFloat( 'clocky', 'LocalTimeZone', 0);
-   OpenWeatherMapAPIKey := ini.ReadString( 'clocky', 'OpenWeatherMapAPIKey', '');
-   DefaultFontName := ini.ReadString( 'clocky', 'DefaultFontName', CLOCKY_FONT);
-
-   sSect := 'Prof_' + IntToStr( ProfileID);
-
+   //global settings
    WeatherProvider := CLOCKY_PROVIDER_OPENWEATHER;
-   p := ini.ReadString( sSect, 'WeatherProvider', '');
+   p := ini.ReadString( 'clocky', 'WeatherProvider', '');
    if (lowercase(p) = 'yahoo') then
    begin
       WeatherProvider := CLOCKY_PROVIDER_YAHOO;
 	end;
+
+   LocalTimeZone := ini.ReadFloat( 'clocky', 'LocalTimeZone', 0);
+   OpenWeatherMapAPIKey := ini.ReadString( 'clocky', 'OpenWeatherMapAPIKey', '');
+   DefaultFontName := ini.ReadString( 'clocky', 'DefaultFontName', CLOCKY_FONT);
+
+   //profile specific settings
+   sSect := 'Prof_' + IntToStr( ProfileID);
+
+   p := ini.ReadString( sSect, 'WeatherProvider', '');  //to override global
+   if (lowercase(p) = 'yahoo') then
+   begin
+      WeatherProvider := CLOCKY_PROVIDER_YAHOO;
+	end;
+   if (lowercase(p) = 'openweather') then
+   begin
+      WeatherProvider := CLOCKY_PROVIDER_OPENWEATHER;
+	end;
+
 
    LocationTitle := ini.ReadString( sSect, 'LocationTitle', 'State College');
    Location := ini.ReadString( sSect, 'Location', 'State College, PA');
@@ -559,4 +572,4 @@ begin
 end;
 
 end.
-
+

@@ -1,8 +1,8 @@
 object frmClockyMain: TfrmClockyMain
   Cursor = crHandPoint
-  Left = 646
+  Left = 568
   Height = 242
-  Top = 62
+  Top = 43
   Width = 503
   BorderStyle = bsNone
   Caption = 'Clocky::1'
