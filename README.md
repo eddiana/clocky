@@ -11,7 +11,7 @@ Microsoft got rid of their Desktop Gadgets.  Well, I was quite partial to the we
 
 Clocky is built with Lazarus, a cross-platform, Open Source RAD IDE for FreePascal.  It is designed to compile on both Windows and Linux.  And it shouldn't be too much trouble to compile for OSX and other platforms supported by Lazarus.
 
-Clocky pulls its weather data from OpenWeatherMap.org.  To use Clocky, you'll need a free API key from them.  It only takes a couple of seconds to get one.
+Clocky pulls its weather data from either OpenWeatherMap.org or the Yahoo weather API.  To use Clocky with OpenWeatherMap.org data, you'll need a free API from them.  It only takes a couple of seconds to get one.
 
 Clocky supports up to 8 different Profiles.  Each can have its own location and time zone setting.  By default Clocky always launches the first profile.  But you can launch other profiles by providing their name as a command line parameter:
 
@@ -24,7 +24,7 @@ You can also switch between profiles within the program itself using the menu.
 
 If you just want to run the Clocky desktop widget, download the /dist directory of this repository to your machine into a directory named 'Clocky'.
 
-Now go to [http://openweathermap.org/appid](http://openweathermap.org/appid "Open Weather Map's API page") and get an API Key.  It'll just take a moment.
+If you want to use OpenWeatherMap.org data, you'll need an API key.  Go to [http://openweathermap.org/appid](http://openweathermap.org/appid "Open Weather Map's API page") and get an API Key.  It'll just take a moment.
 
 To run the program, in Windows, simply run:
 
@@ -51,6 +51,7 @@ The configuration file might looks something like this:
 	LocalTimeZone=-5
 	OpenWeatherMapAPIKey=147f9111af7e56a37960f1af5c976cb4
     DefaultFontName=DejaVu Sans
+	WeatherProvider=yahoo
 
 
 	[Prof_1]
@@ -65,6 +66,7 @@ The configuration file might looks something like this:
 	LocationTimeZone=-5
 	Flat=0
 	AutoLaunch=1
+	WeatherProvider=openweather
 
 
 In the 'clocky' section of the ini file, there is:
@@ -74,6 +76,9 @@ In the 'clocky' section of the ini file, there is:
 **Open WeatherMapAPIKe**y - the API Key you obtained as mentioned above.
 
 **DefaultFontName** - this is the default font to use for display in all the profiles.  If this value is not present, in Windows clocky defaults to *Arial*, and in Linux to the default *sans serif* font.
+
+**WeatherProvider** - set to 'yahoo' (all lower case) to use the Yahoo! weather API.  Set to 'openweather' or leave blank to use OpenWeatherMap.org data.
+
 
 Below the 'clocky' section is the information for the different profiles.  They are titled `Prof_1` to `Prof_8`.   
 
@@ -99,6 +104,9 @@ The options are:
 
 **AutoLaunch** - if set to 1, this profile will automatically be launched as a separate desktop widget when the *auto* parameter is passed to clocky on startup.
 
+**WeatherProvider** - Shis allows you to override the global setting and use a specific data source for a profile.  Set to 'yahoo' (all lower case) to use the Yahoo! weather API.  Set to 'openweather' to use OpenWeatherMap.org data.  Leave blank to use the global value.
+
+
 To add a new Profile, just add the section to the config file, using any of `Prof_1` to `Prof_8`.
 
 To launch a desktop widget using a specific profile, send the profile number as the first parameter when running the program, such as:
@@ -111,11 +119,8 @@ To automatically launch separate widgets for all profiles set to AutoLaunch, pas
 
 
 
-
-
 ####Todo's
 - Geoip check on start to configure first profile.
-- Add Yahoo, Weather.com, and other profiles.
 
 
 ####Acknowledgments
