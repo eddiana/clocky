@@ -53,6 +53,7 @@ type
    Location: string; //whats passed to the api
    TimeFormat: string;
    DateFormat: string;
+   TempUnit: string; //F or C
    BackgroundColor: integer;
    Flat: boolean;
    DefaultFontName: string;
@@ -124,7 +125,7 @@ begin
    BackgroundColor := $600000;
    DefaultFontName := CLOCKY_FONT;
 
-   WeatherProvider := CLOCKY_PROVIDER_OPENWEATHER;
+   WeatherProvider := CLOCKY_PROVIDER_YAHOO; //OPENWEATHER;
 
    Conditions.Code := 100;
 
@@ -294,6 +295,7 @@ var
    j: ISuperObject;
    sa: TSuperArray;
    p: string;
+   n: integer;
 begin
 
    sURL := 'http://api.openweathermap.org/data/2.5/weather?q=' + Location + '&units=imperial&APPID=' + OpenWeatherMapAPIKey;
@@ -310,7 +312,16 @@ begin
             if assigned( j) then
             begin
                try
-                  Conditions.CurrentTemp:= j['main'].i['temp'];
+                  n := j['main'].i['temp'];
+                  if (TempUnit = 'C') then
+                  begin
+                     Conditions.CurrentTemp:= clockyFtoC( n);
+                  end
+                  else
+                  begin
+                     Conditions.CurrentTemp:= n;
+                  end;
+
 
                   sa := j.A['weather'];
 
@@ -374,8 +385,15 @@ begin
                   p := j['query'].o['results'].o['channel'].o['item'].o['condition'].S['temp'];
                   if TryStrToInt( p, n) then
                   begin
-                     Conditions.CurrentTemp := n;
-						end;
+                     if uppercase( TempUnit) = 'C' then
+                     begin
+                        Conditions.CurrentTemp := clockyFtoC(n);
+                     end
+                     else
+                     begin
+                        Conditions.CurrentTemp := n;
+                     end;
+                  end;
 
                   p := j['query'].o['results'].o['channel'].o['item'].o['condition'].S['code'];
                   if TryStrToInt( p, n) then
@@ -474,7 +492,7 @@ begin
    ini := TIniFile.Create( sFile);
 
    //global settings
-   WeatherProvider := CLOCKY_PROVIDER_OPENWEATHER;
+   WeatherProvider := CLOCKY_PROVIDER_YAHOO; //OPENWEATHER;
    p := ini.ReadString( 'clocky', 'WeatherProvider', '');
    if (lowercase(p) = 'yahoo') then
    begin
@@ -502,6 +520,7 @@ begin
    LocationTitle := ini.ReadString( sSect, 'LocationTitle', 'State College');
    Location := ini.ReadString( sSect, 'Location', 'State College, PA');
    LocationTimeZone := ini.ReadFloat( sSect, 'LocationTimeZone', LocalTimeZone);
+   TempUnit := ini.ReadString( sSect, 'Unit', 'F');
 
    Left := ini.ReadInteger( sSect, 'Left', 200);
    Top := ini.ReadInteger( sSect, 'Top', 200);
@@ -572,4 +591,4 @@ begin
 end;
 
 end.
-
+

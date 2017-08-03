@@ -38,7 +38,6 @@
       <Unit0>
         <Filename Value="clocky.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="clocky"/>
       </Unit0>
       <Unit1>
         <Filename Value="formclocky.pas"/>
@@ -56,7 +55,6 @@
       <Unit3>
         <Filename Value="clockyutils.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="clockyutils"/>
       </Unit3>
     </Units>
   </ProjectOptions>
@@ -78,12 +76,6 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <MsgFileName Value=""/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">
